@@ -43,8 +43,10 @@ param searchIndexName string = 'gptkbindex'
 param cognitiveServicesAccountName string = ''
 param cognitiveServicesSkuName string = 'S0'
 param gptDeploymentName string = 'davinci'
+param gptDeploymentCapacity int = 30
 param gptModelName string = 'gpt-35-turbo'
 param chatGptDeploymentName string = 'chat'
+param chatGptDeploymentCapacity int = 30
 param chatGptModelName string = 'gpt-35-turbo'
 
 var abbrs = loadJsonContent('abbreviations.json')
@@ -138,9 +140,7 @@ module cognitiveServices 'core/ai/cognitiveservices.bicep' = {
           name: gptModelName
           version: '0301'
         }
-        scaleSettings: {
-          scaleType: 'Standard'
-        }
+        capacity: gptDeploymentCapacity
       }
       {
         name: chatGptDeploymentName
@@ -149,9 +149,7 @@ module cognitiveServices 'core/ai/cognitiveservices.bicep' = {
           name: chatGptModelName
           version: '0301'
         }
-        scaleSettings: {
-          scaleType: 'Standard'
-        }
+        capacity: chatGptDeploymentCapacity
       }
     ]
     // for private environment
